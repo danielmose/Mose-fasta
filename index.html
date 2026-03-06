@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mose Fasta WiFi – Fast. Reliable. Get Connected Now.</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --navy: #0d1b3e; --navy-mid: #152347; --navy-light: #1e2f5a;
+    --green: #22c55e; --green-dark: #16a34a; --yellow: #f59e0b;
+    --red: #ef4444; --white: #ffffff; --text-muted: #94a3b8; --radius: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Outfit', sans-serif; background: var(--navy); min-height: 100vh; color: var(--white); overflow-x: hidden; max-width: 480px; margin: 0 auto; }
+
+  .hero { background: linear-gradient(160deg, #0a1628 0%, #0d1b3e 60%, #111d42 100%); padding: 52px 24px 44px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 360px; height: 360px; background: radial-gradient(circle, rgba(59,130,246,0.13) 0%, transparent 70%); pointer-events: none; }
+  .location-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); border-radius: 999px; padding: 5px 14px; font-size: 0.75rem; font-weight: 600; color: var(--yellow); margin-bottom: 16px; animation: fadeDown 0.5s ease both; }
+  .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -1.5px; line-height: 1; margin-bottom: 10px; animation: fadeDown 0.6s ease both; }
+  .logo-mose { color: #60a5fa; } .logo-fasta { color: #c084fc; }
+  .logo-wifi { color: #22c55e; font-size: 1.8rem; display: block; font-weight: 700; letter-spacing: 3px; margin-top: 2px; }
+  .tagline { color: var(--yellow); font-size: 0.95rem; font-weight: 500; margin-bottom: 22px; animation: fadeDown 0.7s ease both; }
+  .status-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; padding: 10px 22px; font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; color: var(--text-muted); animation: fadeDown 0.8s ease both; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #64748b; flex-shrink: 0; }
+  .status-dot.on { background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+  .section-wrap { background: var(--navy-mid); border-radius: 28px 28px 0 0; margin-top: -6px; padding: 28px 18px 24px; }
+  .section-title { font-size: 1.25rem; font-weight: 800; color: var(--yellow); margin-bottom: 18px; }
+
+  .package-card { background: #fff; border-radius: var(--radius); padding: 16px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 13px; box-shadow: 0 4px 20px rgba(0,0,0,0.18); transition: transform 0.18s, box-shadow 0.18s; animation: slideUp 0.5s ease both; }
+  .package-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+  .package-card:nth-child(2){animation-delay:0.08s} .package-card:nth-child(3){animation-delay:0.16s} .package-card:nth-child(4){animation-delay:0.24s}
+  .wifi-svg { flex-shrink: 0; } .pkg-info { flex: 1; }
+  .pkg-name { font-size: 1rem; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .pkg-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { display: inline-flex; align-items: center; gap: 3px; font-size: 0.7rem; font-weight: 600; padding: 4px 9px; border-radius: 999px; }
+  .tag-dark { background: #f1f5f9; color: #334155; } .tag-green { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
+  .pkg-right { text-align: right; flex-shrink: 0; }
+  .pkg-price { font-size: 1.05rem; font-weight: 800; color: var(--green); margin-bottom: 8px; white-space: nowrap; }
+  .btn-buy { background: var(--green); color: white; border: none; border-radius: 11px; padding: 10px 16px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: background 0.15s, transform 0.12s; white-space: nowrap; }
+  .btn-buy:hover { background: var(--green-dark); transform: scale(1.04); }
+
+  .reconnect-section { background: var(--navy-light); border-radius: 24px; padding: 24px 18px; margin: 0 0 18px; }
+  .tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 18px; }
+  .tab { flex: 1; text-align: center; padding: 10px 0; font-size: 0.83rem; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+  .tab.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+  .tab-content { display: none; } .tab-content.active { display: block; }
+
+  .input-field { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; color: white; font-family: 'Outfit', sans-serif; font-size: 0.95rem; margin-bottom: 12px; outline: none; transition: border-color 0.15s; }
+  .input-field::placeholder { color: #64748b; } .input-field:focus { border-color: var(--green); }
+  .btn-reconnect { width: 100%; background: var(--green); color: white; border: none; border-radius: 12px; padding: 15px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+  .btn-reconnect:hover { background: var(--green-dark); }
+
+  .result-box { border-radius: 12px; padding: 14px 16px; margin-top: 12px; font-size: 0.88rem; font-weight: 600; line-height: 1.6; display: none; white-space: pre-line; }
+  .result-box.success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; display: block; }
+  .result-box.error { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #f87171; display: block; }
+
+  .register-link { text-align: center; margin-top: 12px; font-size: 0.82rem; color: var(--text-muted); }
+  .register-link span { color: var(--green); cursor: pointer; font-weight: 600; text-decoration: underline; }
+
+  .help-section { background: var(--navy-light); border-radius: 24px; padding: 24px 18px; margin-bottom: 18px; position: relative; overflow: hidden; }
+  .help-section::after { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(34,197,94,0.07); pointer-events: none; }
+  .help-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .help-title { font-size: 1.15rem; font-weight: 800; }
+  .help-sub { color: var(--text-muted); font-size: 0.83rem; margin-bottom: 18px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+  .contact-btn { display: flex; flex-direction: column; align-items: center; gap: 7px; border-radius: 14px; padding: 15px 8px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; transition: transform 0.15s; border: none; text-decoration: none; }
+  .contact-btn:hover { transform: translateY(-2px); }
+  .contact-btn .icon { font-size: 1.4rem; }
+  .btn-whatsapp { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.25); }
+  .btn-call { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+  .btn-emailc { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.25); }
+  .info-box { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 13px 14px; margin-bottom: 18px; }
+  .info-row { display: flex; align-items: center; gap: 10px; font-size: 0.83rem; color: var(--text-muted); line-height: 2; }
+  .info-row strong { color: white; }
+  .faq-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 10px; }
+  .faq-item { background: rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
+  .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 14px 15px; cursor: pointer; font-size: 0.88rem; font-weight: 600; color: white; border: none; background: transparent; width: 100%; text-align: left; transition: background 0.15s; }
+  .faq-question:hover { background: rgba(255,255,255,0.04); }
+  .faq-arrow { color: var(--text-muted); transition: transform 0.2s; font-size: 1rem; flex-shrink: 0; }
+  .faq-answer { display: none; padding: 0 15px 13px; font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-item.open .faq-answer { display: block; }
+
+  footer { text-align: center; padding: 18px 24px 36px; color: var(--text-muted); font-size: 0.78rem; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 100; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(4px); }
+  .modal-overlay.open { display: flex; }
+  .modal { background: white; border-radius: 24px; padding: 28px 24px; width: 100%; max-width: 400px; position: relative; animation: popIn 0.25s ease; max-height: 90vh; overflow-y: auto; }
+  .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #64748b; font-weight: 700; }
+  .modal-sub { font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; color: #94a3b8; margin-bottom: 4px; }
+  .modal-plan { font-size: 1.8rem; font-weight: 900; color: #1e293b; margin-bottom: 16px; }
+  .modal-divider { height: 1px; background: #f1f5f9; margin-bottom: 16px; }
+  .modal-amount-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .modal-amount-label { font-size: 0.9rem; color: #64748b; font-weight: 500; }
+  .modal-amount-value { font-size: 1.1rem; font-weight: 800; color: #1e293b; }
+  .modal-payee { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #15803d; font-weight: 600; margin-bottom: 14px; text-align: center; }
+  .modal-payee span { display: block; font-size: 1rem; font-weight: 800; color: #16a34a; margin-top: 2px; }
+  .modal-steps { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 11px 14px; margin-bottom: 14px; font-size: 0.82rem; color: #c2410c; line-height: 1.7; }
+  .modal-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; color: #94a3b8; margin-bottom: 8px; text-transform: uppercase; }
+  .modal-input { width: 100%; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #1e293b; outline: none; margin-bottom: 12px; transition: border-color 0.15s; }
+  .modal-input:focus { border-color: var(--green); }
+  .btn-confirm { width: 100%; background: var(--green); color: white; border: none; border-radius: 14px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.15s; margin-bottom: 10px; }
+  .btn-confirm:hover { background: var(--green-dark); }
+  .modal-note { font-size: 0.78rem; color: #94a3b8; text-align: center; line-height: 1.5; }
+
+  .toast { display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 14px 24px; border-radius: 999px; font-size: 0.88rem; font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 200; white-space: nowrap; border-left: 4px solid var(--green); }
+  .toast.show { display: block; }
+  .toast.err { border-left-color: var(--red); }
+
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes popIn { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="location-badge">📍 Nairobi, Kenya</div>
+  <div class="logo"><span class="logo-mose">Mose</span> <span class="logo-fasta">Fasta</span><span class="logo-wifi">WiFi</span></div>
+  <div class="tagline">Fast. Reliable. Get Connected Now.</div>
+  <div class="status-pill">
+    <span class="status-dot" id="sDot"></span>
+    <span id="sTxt">NOT CONNECTED</span>
+  </div>
+</div>
+
+<div class="section-wrap">
+  <div class="section-title">Choose Your Package</div>
+
+  <div class="package-card">
+    <svg class="wifi-svg" width="42" height="32" viewBox="0 0 42 32" fill="none"><path d="M21 28a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#3b82f6"/><path d="M14.5 21.5a9.2 9.2 0 0 1 13 0" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.5a17 17 0 0 1 25 0" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M2.5 9.5a25 25 0 0 1 37 0" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+    <div class="pkg-info"><div class="pkg-name">1 Hour</div><div class="pkg-tags"><span class="tag tag-dark">🕐 1 Hour(s)</span><span class="tag tag-dark">⚡ 3M</span><span class="tag tag-green">∞ Unlimited</span></div></div>
+    <div class="pkg-right"><div class="pkg-price">KES 5</div><button class="btn-buy" onclick="openPay('1 Hour','KES 5')">Buy Now</button></div>
+  </div>
+
+  <div class="package-card">
+    <svg class="wifi-svg" width="42" height="32" viewBox="0 0 42 32" fill="none"><path d="M21 28a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#3b82f6"/><path d="M14.5 21.5a9.2 9.2 0 0 1 13 0" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.5a17 17 0 0 1 25 0" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M2.5 9.5a25 25 0 0 1 37 0" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+    <div class="pkg-info"><div class="pkg-name">24 Hours</div><div class="pkg-tags"><span class="tag tag-dark">🕐 1 Day(s)</span><span class="tag tag-dark">⚡ 5M</span><span class="tag tag-green">∞ Unlimited</span></div></div>
+    <div class="pkg-right"><div class="pkg-price">KES 50</div><button class="btn-buy" onclick="openPay('24 Hours','KES 50')">Buy Now</button></div>
+  </div>
+
+  <div class="package-card">
+    <svg class="wifi-svg" width="42" height="32" viewBox="0 0 42 32" fill="none"><path d="M21 28a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#3b82f6"/><path d="M14.5 21.5a9.2 9.2 0 0 1 13 0" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.5a17 17 0 0 1 25 0" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M2.5 9.5a25 25 0 0 1 37 0" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+    <div class="pkg-info"><div class="pkg-name">1 Week</div><div class="pkg-tags"><span class="tag tag-dark">🕐 7 Day(s)</span><span class="tag tag-dark">⚡ 5M</span><span class="tag tag-green">∞ Unlimited</span></div></div>
+    <div class="pkg-right"><div class="pkg-price">KES 350</div><button class="btn-buy" onclick="openPay('1 Week','KES 350')">Buy Now</button></div>
+  </div>
+
+  <div class="package-card">
+    <svg class="wifi-svg" width="42" height="32" viewBox="0 0 42 32" fill="none"><path d="M21 28a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#3b82f6"/><path d="M14.5 21.5a9.2 9.2 0 0 1 13 0" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.5a17 17 0 0 1 25 0" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M2.5 9.5a25 25 0 0 1 37 0" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+    <div class="pkg-info"><div class="pkg-name">1 Month</div><div class="pkg-tags"><span class="tag tag-dark">🕐 30 Day(s)</span><span class="tag tag-dark">⚡ 10M</span><span class="tag tag-green">∞ Unlimited</span></div></div>
+    <div class="pkg-right"><div class="pkg-price">KES 999</div><button class="btn-buy" onclick="openPay('1 Month','KES 999')">Buy Now</button></div>
+  </div>
+
+  <!-- QUICK RECONNECT -->
+  <div class="reconnect-section">
+    <div class="section-title">Quick Reconnect</div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('mpesa',this)">M-Pesa Code</div>
+      <div class="tab" onclick="switchTab('voucher',this)">Voucher</div>
+      <div class="tab" onclick="switchTab('login',this)">User Login</div>
+    </div>
+
+    <div id="tab-mpesa" class="tab-content active">
+      <input type="text" id="mpesaCode" class="input-field" placeholder="Enter M-Pesa Code e.g. QG7A1B2C3D">
+      <button class="btn-reconnect" onclick="doMpesa()">Reconnect Now</button>
+      <div id="mpesaRes" class="result-box"></div>
+    </div>
+
+    <div id="tab-voucher" class="tab-content">
+      <input type="text" id="voucherCode" class="input-field" placeholder="Enter Voucher Code e.g. MOSE50">
+      <button class="btn-reconnect" onclick="doVoucher()">Apply Voucher</button>
+      <div id="voucherRes" class="result-box"></div>
+    </div>
+
+    <div id="tab-login" class="tab-content">
+      <div id="loginForm">
+        <input type="email" id="loginEmail" class="input-field" placeholder="Email address">
+        <input type="password" id="loginPass" class="input-field" placeholder="Password">
+        <button class="btn-reconnect" onclick="doLogin()">Login &amp; Connect</button>
+        <div id="loginRes" class="result-box"></div>
+        <div class="register-link">No account? <span onclick="showReg()">Register here</span></div>
+      </div>
+      <div id="regForm" style="display:none">
+        <input type="text" id="regName" class="input-field" placeholder="Full Name">
+        <input type="email" id="regEmail" class="input-field" placeholder="Email address">
+        <input type="password" id="regPass" class="input-field" placeholder="Create password (min 6 chars)">
+        <button class="btn-reconnect" onclick="doRegister()">Create Account</button>
+        <div id="regRes" class="result-box"></div>
+        <div class="register-link">Have an account? <span onclick="showLogin()">Login</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELP -->
+  <div class="help-section">
+    <div class="help-header"><span style="font-size:1.5rem">🎧</span><span class="help-title">Need Help?</span></div>
+    <div class="help-sub">We're here to assist you 24/7</div>
+    <div class="contact-grid">
+      <a href="https://wa.me/254740851637?text=Hello%20Mose%20Fasta%20WiFi%2C%20I%20need%20help%20connecting." target="_blank" class="contact-btn btn-whatsapp"><span class="icon">💬</span>WHATSAPP</a>
+      <a href="tel:+254740851637" class="contact-btn btn-call"><span class="icon">📞</span>CALL US</a>
+      <a href="mailto:danielmose776@gmail.com" class="contact-btn btn-emailc"><span class="icon">✉️</span>EMAIL</a>
+    </div>
+    <div class="info-box">
+      <div class="info-row"><span>🕐</span> Support Hours: <strong>24/7 Available</strong></div>
+      <div class="info-row"><span>⚡</span> Typical response: <strong>Under 5 minutes</strong></div>
+      <div class="info-row"><span>📍</span> Location: <strong>Nairobi, Kenya</strong></div>
+    </div>
+    <div class="faq-label">QUICK ANSWERS</div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Can't connect to WiFi? <span class="faq-arrow">▼</span></button><div class="faq-answer">Make sure you're connected to <strong>Mose Fasta WiFi</strong> network, then open your browser. If the portal doesn't load visit <strong>192.168.1.1</strong></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Payment sent but not connected? <span class="faq-arrow">▼</span></button><div class="faq-answer">Use <strong>Quick Reconnect → M-Pesa Code</strong> tab and enter your M-Pesa transaction code to reconnect instantly.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How do I check my remaining time? <span class="faq-arrow">▼</span></button><div class="faq-answer">Log in using the <strong>User Login</strong> tab with your email and password to check your session status.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Can I share with other devices? <span class="faq-arrow">▼</span></button><div class="faq-answer">Each package is for one device. For multiple devices purchase separate packages or contact support for a custom plan.</div></div>
+  </div>
+
+  <footer>Mose Fasta WiFi © 2026 &nbsp;|&nbsp; Nairobi, Kenya<br>Powered by Techjei Technologies</footer>
+</div>
+
+<!-- PAY MODAL -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeMod('payModal')">✕</button>
+    <div class="modal-sub">YOU ARE ABOUT TO SUBSCRIBE TO:</div>
+    <div class="modal-plan" id="mPlan">1 Hour</div>
+    <div class="modal-divider"></div>
+    <div class="modal-amount-row"><span class="modal-amount-label">Plan Amount:</span><span class="modal-amount-value" id="mPrice">KES 5</span></div>
+    <div class="modal-payee">
+      💳 Send M-Pesa payment to:
+      <span>Daniel Mose</span>
+      <div style="font-size:0.85rem;color:#15803d;margin-top:4px;">☎️ Number: <strong>+254 768 168 973</strong></div>
+    </div>
+    <div class="modal-steps">
+      <strong>📋 How to pay via M-Pesa:</strong><br>
+      1. Go to <strong>M-Pesa → Send Money</strong><br>
+      2. Enter: <strong>0768168973</strong> (Daniel Mose)<br>
+      3. Enter amount &amp; your PIN<br>
+      4. Use the M-Pesa code in <strong>Quick Reconnect</strong>
+    </div>
+    <div class="modal-label">Your Phone Number (for records)</div>
+    <input type="tel" class="modal-input" id="mPhone" placeholder="e.g. 0712345678" maxlength="12">
+    <button class="btn-confirm" onclick="confirmPay()">I Have Paid — Activate Now</button>
+    <div class="modal-note">After paying, enter your M-Pesa code in <strong>Quick Reconnect → M-Pesa Code</strong> to activate.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+emailjs.init({ publicKey: "AtIjUOwnCskIaCG8r" });
+
+// Voucher codes — add more as needed
+var VOUCHERS = {
+  'MOSE5':   { plan:'1 Hour',   dur:'1 hour' },
+  'MOSE50':  { plan:'24 Hours', dur:'24 hours' },
+  'MOSE350': { plan:'1 Week',   dur:'1 week' },
+  'MOSE999': { plan:'1 Month',  dur:'1 month' },
+  'FREE1HR': { plan:'1 Hour',   dur:'1 hour' },
+  'VIP24':   { plan:'24 Hours', dur:'24 hours' }
+};
+
+function getUsers(){ try{ return JSON.parse(localStorage.getItem('mf_u')||'{}'); }catch(e){ return {}; } }
+function saveUsers(u){ localStorage.setItem('mf_u', JSON.stringify(u)); }
+function getCurrent(){ try{ return JSON.parse(localStorage.getItem('mf_c')||'null'); }catch(e){ return null; } }
+function setCurrent(u){ localStorage.setItem('mf_c', JSON.stringify(u)); }
+
+window.addEventListener('load', function(){
+  var u = getCurrent();
+  if(u){ setStatus(true, 'CONNECTED — '+u.name.toUpperCase()); }
+});
+
+function setStatus(on, text){
+  var d = document.getElementById('sDot');
+  var t = document.getElementById('sTxt');
+  if(on){ d.classList.add('on'); } else { d.classList.remove('on'); }
+  t.textContent = text;
+}
+
+function openPay(plan, price){
+  document.getElementById('mPlan').textContent = plan;
+  document.getElementById('mPrice').textContent = price;
+  document.getElementById('mPhone').value = '';
+  document.getElementById('payModal').classList.add('open');
+}
+function closeMod(id){ document.getElementById(id).classList.remove('open'); }
+document.getElementById('payModal').addEventListener('click', function(e){ if(e.target===this) closeMod('payModal'); });
+
+function confirmPay(){
+  var phone = document.getElementById('mPhone').value.trim();
+  var plan  = document.getElementById('mPlan').textContent;
+  var price = document.getElementById('mPrice').textContent;
+  if(!phone || phone.length < 9){ toast('⚠️ Enter a valid phone number', true); return; }
+  closeMod('payModal');
+  toast('✅ Send M-Pesa to 0768168973 (Daniel Mose), then paste your code in Quick Reconnect.');
+  var t = new Date().toLocaleString('en-KE',{timeZone:'Africa/Nairobi'});
+  emailjs.send('service_7ckkfv5','template_0jeqcd9',{
+    to_name:'Daniel Mose', to_email:'danielmose776@gmail.com',
+    from_name:'Mose Fasta WiFi', subject:'🔔 New Purchase — '+plan,
+    message:'New customer!\nPackage: '+plan+'\nAmount: '+price+'\nPhone: '+phone+'\nTime: '+t,
+    reply_to:'danielmose776@gmail.com'
+  }).catch(function(e){ console.warn('Email:',e); });
+}
+
+function doMpesa(){
+  var code = document.getElementById('mpesaCode').value.trim().toUpperCase();
+  var box  = document.getElementById('mpesaRes');
+  if(!code || code.length < 8){ res(box,'error','⚠️ Enter a valid M-Pesa code (e.g. QG7A1B2C3D).'); return; }
+  res(box,'success','✅ Code accepted! Connecting you now...\nIf not connected in 30 seconds, call +254 740 851 637.');
+  setStatus(true,'CONNECTED');
+  toast('✅ Reconnecting...');
+}
+
+function doVoucher(){
+  var code    = document.getElementById('voucherCode').value.trim().toUpperCase();
+  var box     = document.getElementById('voucherRes');
+  if(!code){ res(box,'error','⚠️ Please enter a voucher code.'); return; }
+  var voucher = VOUCHERS[code];
+  if(!voucher){ res(box,'error','❌ Invalid voucher code. Check and try again or contact support.'); return; }
+  res(box,'success','🎉 Voucher valid!\nPlan: '+voucher.plan+' ('+voucher.dur+')\nConnecting you now...');
+  document.getElementById('voucherCode').value = '';
+  setStatus(true,'CONNECTED');
+  toast('🎉 '+voucher.plan+' activated!');
+}
+
+function doLogin(){
+  var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  var pass  = document.getElementById('loginPass').value;
+  var box   = document.getElementById('loginRes');
+  if(!email||!pass){ res(box,'error','⚠️ Please enter your email and password.'); return; }
+  var users = getUsers();
+  var user  = users[email];
+  if(!user){ res(box,'error','❌ No account found. Please register first.'); return; }
+  if(user.pass !== pass){ res(box,'error','❌ Incorrect password. Try again.'); return; }
+  setCurrent({name:user.name, email:email});
+  res(box,'success','✅ Welcome back, '+user.name+'!\nYou are now connected.');
+  setStatus(true,'CONNECTED — '+user.name.toUpperCase());
+  toast('✅ Welcome back, '+user.name+'!');
+}
+
+function doRegister(){
+  var name  = document.getElementById('regName').value.trim();
+  var email = document.getElementById('regEmail').value.trim().toLowerCase();
+  var pass  = document.getElementById('regPass').value;
+  var box   = document.getElementById('regRes');
+  if(!name||!email||!pass){ res(box,'error','⚠️ Please fill in all fields.'); return; }
+  if(pass.length<6){ res(box,'error','⚠️ Password must be at least 6 characters.'); return; }
+  if(!email.includes('@')){ res(box,'error','⚠️ Enter a valid email address.'); return; }
+  var users = getUsers();
+  if(users[email]){ res(box,'error','⚠️ Account already exists. Please login.'); return; }
+  users[email] = {name:name, email:email, pass:pass, joined:new Date().toISOString()};
+  saveUsers(users);
+  setCurrent({name:name, email:email});
+  res(box,'success','✅ Account created! Welcome, '+name+'!');
+  setStatus(true,'CONNECTED — '+name.toUpperCase());
+  toast('✅ Welcome to Mose Fasta WiFi, '+name+'!');
+  var t = new Date().toLocaleString('en-KE',{timeZone:'Africa/Nairobi'});
+  emailjs.send('service_7ckkfv5','template_0jeqcd9',{
+    to_name:'Daniel Mose', to_email:'danielmose776@gmail.com',
+    from_name:'Mose Fasta WiFi', subject:'🆕 New User — '+name,
+    message:'New user registered!\nName: '+name+'\nEmail: '+email+'\nTime: '+t,
+    reply_to:'danielmose776@gmail.com'
+  }).catch(function(e){ console.warn('Email:',e); });
+}
+
+function showReg(){ document.getElementById('loginForm').style.display='none'; document.getElementById('regForm').style.display='block'; }
+function showLogin(){ document.getElementById('regForm').style.display='none'; document.getElementById('loginForm').style.display='block'; }
+
+function switchTab(tab, el){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+function toggleFaq(btn){ btn.parentElement.classList.toggle('open'); }
+
+function res(box, type, msg){ box.className='result-box '+type; box.textContent=msg; }
+function toast(msg, err){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show'+(err?' err':'');
+  setTimeout(function(){ t.classList.remove('show'); }, 4500);
+}
+</script>
+</body>
+</html>
